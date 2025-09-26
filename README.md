@@ -15,3 +15,10 @@ A python-script to make Rick say whatever you want! - With the option to use any
 python3 main.py out.mp4
 ```
 * The `out.mp4` file should now be located next-too the `main.py` file.
+
+
+### Problems?
+If you encounter any problems with the script and you believe you found a bug, feel free to open an issue on GitHub.
+
+### Contributing
+You are welcome to improve the script and open a pull request.
