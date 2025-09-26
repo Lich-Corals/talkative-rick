@@ -1,6 +1,10 @@
 ## Talkative Rick
 A python-script to make Rick say whatever you want! - With the option to use any images you want instead of Rick.
 
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/206966d7-c76e-48c2-974d-5877535676eb"></img>
+</p>
+
 ### Installation
 * Clone the repository
 * Install python modules `numpy` and `librosa` using `pip` or your system's package manager
