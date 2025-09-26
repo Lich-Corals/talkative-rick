@@ -8,6 +8,7 @@ A python-script to make Rick say whatever you want! - With the option to use any
 ### Installation
 * Clone the repository
 * Install python modules `numpy` and `librosa` using `pip` or your system's package manager
+* Install `ffmpeg` using your system package manager
 
 ### Usage
 * Replace the audio file in the `res` directory
@@ -20,9 +21,14 @@ python3 main.py out.mp4
 ```
 * The `out.mp4` file should now be located next-too the `main.py` file.
 
-
 ### Problems?
 If you encounter any problems with the script and you believe you found a bug, feel free to open an issue on GitHub.
+
+#### Windows support?
+While this script doesn't use any deeply rooted Linux-only features, I don't know if it is fully Windows compatible. The critical parts are the following:
+* Hard-coded relative filepaths using a forward slash (e.g.: `./res/`)
+* Symlinks are used... I don't know if Windows supports those.
+* ffmpeg is executed using `os.system()` with a hard-coded command. This command may be different of Windows. 
 
 ### Contributing
 You are welcome to improve the script and open a pull request.
