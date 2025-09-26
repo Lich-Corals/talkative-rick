@@ -20,6 +20,7 @@ def get_data_at_time(audio_data, sample_rate, time) -> (float, str):
 
 if len(sys.argv) != 2:
     print("Usage: main.py [output name].mp4")
+    exit()
 elif ".mp4" != sys.argv[1][len(sys.argv[1])-4:len(sys.argv[1])]:
     sys.argv[1] = sys.argv[1] + ".mp4"
 
