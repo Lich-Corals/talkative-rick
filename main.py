@@ -34,6 +34,10 @@ def get_data_at_time(audio_data, sample_rate, time) -> (float, str):
         else:
             return (None, "Index out of range")
 
+check_ffmpeg = os.system("ffmpeg -version")
+if check_ffmpeg != 0:
+    print("ffmpeg not executeable!")
+    exit()
 
 output_file = ""
 audio_input = "./res/audio.mp3"
