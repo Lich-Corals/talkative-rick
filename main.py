@@ -16,8 +16,9 @@
 
 import os
 import sys
-import librosa
+import math
 import numpy
+import librosa
 
 def clean_up():
     old_files = os.listdir("./imgs/")
@@ -34,6 +35,14 @@ def get_data_at_time(audio_data, sample_rate, time) -> (float, str):
         else:
             return (None, "Index out of range")
 
+def get_standard_deviation(data, average) -> float:
+    sum = 0
+    for i in range(len(data)):
+        sum += (data[i] - average) ** 2
+    standard_deviation = math.sqrt( sum * (1 / (len(data) - 1)) )
+    return standard_deviation
+
+
 check_ffmpeg = os.system("ffmpeg -version")
 if check_ffmpeg != 0:
     print("ffmpeg not executeable!")
@@ -41,14 +50,24 @@ if check_ffmpeg != 0:
 
 output_file = ""
 audio_input = "./res/audio.mp3"
-if len(sys.argv) < 2 or len(sys.argv) > 3:
-    print("Usage: main.py (audio_file) [output name]\nOptional arguments in (brackets); obligatory arguments in [square brackets].")
+averaging_mode = "--averaging-global"
+averaging_tolerance = 1.0
+if len(sys.argv) < 2 or len(sys.argv) > 4:
+    print("Usage: main.py (--averaging-[global|padded|local]_[tolarance]) (audio_file) [output name]\nOptional arguments in (brackets); obligatory arguments in [square brackets].")
     exit()
 else:
     output_file = sys.argv[len(sys.argv) - 1]
     match len(sys.argv):
         case 3:
-            audio_input = sys.argv[1]
+            if "--averaging-" in sys.argv[1]:
+                averaging_mode = sys.argv[1].split("_")[0]
+                averaging_tolerance = float(sys.argv[1].split("_")[1])
+            else:
+                audio_input = sys.argv[1]
+        case 4:
+            audio_input = sys.argv[2]
+            averaging_mode = sys.argv[1].split("_")[0]
+            averaging_tolerance = float(sys.argv[1].split("_")[1])
     if ".mp4" != output_file[len(output_file)-4:len(output_file)]:
         output_file += ".mp4"
 
@@ -72,7 +91,23 @@ average_volume = sum(volumes_to_analyze)/len(volumes_to_analyze)
 
 i = 0
 for volume in volumes_to_analyze:
-    if volume > average_volume:
+    open = False
+    match averaging_mode:
+        case "--averaging-global":
+            open = volume > average_volume
+        case "--averaging-padded":
+            standard_deviation = get_standard_deviation(volumes_to_analyze, average_volume)
+            open = volume + standard_deviation*averaging_tolerance > average_volume
+        case "--averaging-local":
+            local_range = 12
+            local_range_add = local_range
+            if i + local_range >= len(volumes_to_analyze):
+                local_range_add = len(volumes_to_analyze) - i - 1
+            dataset = volumes_to_analyze[i-local_range:i+local_range_add]
+            dataset_average = sum(dataset)/(len(dataset) + 1)
+            standard_deviation = get_standard_deviation(dataset, dataset_average)
+            open = volume + standard_deviation*averaging_tolerance > dataset_average
+    if open:
         os.symlink(os.path.abspath("./res/open.jpg"), f"./imgs/{i:06}.jpg")
     else:
         os.symlink(os.path.abspath("./res/closed.jpg"), f"./imgs/{i:06}.jpg")

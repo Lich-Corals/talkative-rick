@@ -17,13 +17,20 @@ A python-script to make Rick say whatever you want! - With the option to use any
 > The filenames must remain `audio.mp3`, `closed.jpg` and `open.jpg`!
 * Run the script; (arguments) are optional, [arguments] are obligatory:
 ```bash
-python3 main.py (audio file) [output file]
+python3 main.py (--averaging-[global|padded|local]_[tolarance]) (audio file) [output file]
 
 # for example:
-python3 main.py ~/Music/some_audio.ogg ~/Videos/talkative_rick.mp4
+python3 main.py --averaging-global_1 ~/Music/some_audio.ogg ~/Videos/talkative_rick.mp4
 # or
-python3 main.py ~/Videos/talkative_rick
+python3 main.py --averaging-padded_0.5 ~/Videos/talkative_rick
+# or
+python3 main.py --averaging-local_1.2 ~/Music/some_audio.mp3 ~/Videos/talkative_rick.mp4
 ```
+> [!NOTE]   
+> Averaging modes determine which audio volumes are considered to be voice.  
+>    
+> The tolerance only affects padded and global modes.   
+> Higher tolerance means more will be interpreted as voice; default is 1.0
 * If just the base name of the output is provided, it should be in your current terminal directory.
 
 ### Problems?
