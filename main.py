@@ -34,11 +34,19 @@ def get_data_at_time(audio_data, sample_rate, time) -> (float, str):
         else:
             return (None, "Index out of range")
 
-if len(sys.argv) != 2:
-    print("Usage: main.py [output name].mp4")
+
+output_file = ""
+audio_input = "./res/audio.mp3"
+if len(sys.argv) < 2 or len(sys.argv) > 3:
+    print("Usage: main.py (audio_file) [output name]\nOptional arguments in (brackets); obligatory arguments in [square brackets].")
     exit()
-elif ".mp4" != sys.argv[1][len(sys.argv[1])-4:len(sys.argv[1])]:
-    sys.argv[1] = sys.argv[1] + ".mp4"
+else:
+    output_file = sys.argv[len(sys.argv) - 1]
+    match len(sys.argv):
+        case 3:
+            audio_input = sys.argv[1]
+    if ".mp4" != output_file[len(output_file)-4:len(output_file)]:
+        output_file += ".mp4"
 
 if os.path.exists("./imgs"):
     clean_up()
@@ -66,6 +74,8 @@ for volume in volumes_to_analyze:
         os.symlink(os.path.abspath("./res/closed.jpg"), f"./imgs/{i:06}.jpg")
     i += 1
 
-os.system(f"""ffmpeg -loglevel error -framerate 48 -pattern_type glob -i "./imgs/*.jpg" -i "./res/audio.mp3" -c:a aac -c:v h264 {sys.argv[1]}""")
+print(f"Creating {output_file} with audio data from {audio_input}...")
+
+os.system(f"""ffmpeg -loglevel error -framerate 48 -pattern_type glob -i "./imgs/*.jpg" -i "{audio_input}" -c:a aac -c:v h264 {output_file}""")
 
 clean_up()

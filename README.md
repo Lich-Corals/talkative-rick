@@ -15,11 +15,16 @@ A python-script to make Rick say whatever you want! - With the option to use any
 * Optionally replace the images in `res` too
 > [!NOTE]   
 > The filenames must remain `audio.mp3`, `closed.jpg` and `open.jpg`!
-* Run the script with the output filename as argument:
+* Run the script; (arguments) are optional, [arguments] are obligatory:
 ```bash
-python3 main.py out.mp4
+python3 main.py (audio file) [output file]
+
+# for example:
+python3 main.py ~/Music/some_audio.ogg ~/Videos/talkative_rick.mp4
+# or
+python3 main.py ~/Videos/talkative_rick
 ```
-* The `out.mp4` file should now be located next-too the `main.py` file.
+* If just the base name of the output is provided, it should be in your current terminal directory.
 
 ### Problems?
 If you encounter any problems with the script and you believe you found a bug, feel free to open an issue on GitHub.
