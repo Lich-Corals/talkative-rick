@@ -2,7 +2,7 @@
 A python-script to make Rick say whatever you want! - With the option to use any images you want instead of Rick.
 
 > [!IMPORTANT]  
-> For and Microsoft- and _other_-Reasons, this project will migrate to Codeberg soon.
+> For Microsoft- and _other_-Reasons, this project will migrate to Codeberg soon.
 >
 > If you still want to support this project, consider starring it on Codeberg
 > 
