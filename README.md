@@ -2,11 +2,11 @@
 A python-script to make Rick say whatever you want! - With the option to use any images you want instead of Rick.
 
 > [!IMPORTANT]  
-> For Microsoft- and _other_-Reasons, this project will migrate to Codeberg soon.
+> For _reasons_, this project has been moved to Codeberg.
 >
-> If you still want to support this project, consider starring it on Codeberg
+> If you still want to support this project, consider starring it on Codeberg.
 > 
-> [![Codeberg](https://img.shields.io/badge/-not_on_codeberg_yet-696969?style=for-the-badge&logo=Codeberg&logoColor=white)]()
+> [![Codeberg](https://img.shields.io/badge/-view_on_codeberg-2185D0?style=for-the-badge&logo=Codeberg&logoColor=white)](https://codeberg.org/Lich-Corals/talkative-rick)
 
 <p align="center">
   <img src="https://github.com/user-attachments/assets/206966d7-c76e-48c2-974d-5877535676eb"></img>
